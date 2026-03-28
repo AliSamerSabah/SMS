@@ -1,0 +1,307 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant hover (&:hover);
+
+.btn {
+  @apply cursor-pointer hover:scale-130 transition-all active:scale-90 hover:border-4 hover:border-white;
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+}
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+h4 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+h5 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+h6 {
+  font-size: 1rem;
+  font-weight: 300;
+}
+p {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* track */
+::-webkit-scrollbar-track {
+  background: gray;
+}
+
+/* thumb */
+::-webkit-scrollbar-thumb {
+  background: aqua;
+  border-radius: 9999px;
+}
+
+/* thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+* {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: aqua gray;
+}
+
+
+/* Remove spinner arrows — Chrome, Edge, Safari */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* Remove spinner arrows — Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+
+
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.13 0.028 261.692);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.13 0.028 261.692);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.13 0.028 261.692);
+  --primary: oklch(70.7% 0.165 254.624);
+  --primary-foreground: oklch(0.98 0.02 201);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.003 264.542);
+  --muted-foreground: oklch(0.551 0.027 264.364);
+  --accent: oklch(0.967 0.003 264.542);
+  --accent-foreground: oklch(0.21 0.034 264.665);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.928 0.006 264.531);
+  --input: oklch(0.928 0.006 264.531);
+  --ring: oklch(0.707 0.022 261.325);
+  /* --chart-1: oklch(0.87 0.12 207);
+    --chart-2: oklch(0.80 0.13 212);
+    --chart-3: oklch(0.71 0.13 215);
+    --chart-4: oklch(0.61 0.11 222);
+    --chart-5: oklch(0.52 0.09 223); */
+  --radius: 0.875rem;
+  /* --sidebar: oklch(0.985 0.002 247.839);
+    --sidebar-foreground: oklch(0.13 0.028 261.692);
+    --sidebar-primary: oklch(0.61 0.11 222);
+    --sidebar-primary-foreground: oklch(0.98 0.02 201);
+    --sidebar-accent: oklch(0.967 0.003 264.542);
+    --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
+    --sidebar-border: oklch(0.928 0.006 264.531);
+    --sidebar-ring: oklch(0.707 0.022 261.325); */
+    
+    
+  .box-effect {
+    box-shadow: inset 30px 30px 60px #dedede, inset -30px -30px 60px rgb(225, 225, 225);
+  }
+
+  /* ====================================================================== */
+  /* custom colors */
+  /* ====================================================================== */
+
+  --navbar: oklch(37.15% 0.00004 271.152);
+  --forenavbar: oklch(100% 0.00011 271.152);
+
+
+
+}
+
+.dark {
+  --background: oklch(0.13 0.028 261.692);
+  --foreground: oklch(0.985 0.002 247.839);
+  --card: oklch(0.21 0.034 264.665);
+  --card-foreground: oklch(0.985 0.002 247.839);
+  --popover: oklch(0.21 0.034 264.665);
+  --popover-foreground: oklch(0.985 0.002 247.839);
+  --primary: oklch(0.71 0.13 215);
+  --primary-foreground: oklch(0.3 0.05 230);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.278 0.033 256.848);
+  --muted-foreground: oklch(0.707 0.022 261.325);
+  --accent: oklch(0.278 0.033 256.848);
+  --accent-foreground: oklch(0.985 0.002 247.839);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  /* --chart-1: oklch(0.87 0.12 207);
+    --chart-2: oklch(0.80 0.13 212);
+    --chart-3: oklch(0.71 0.13 215);
+    --chart-4: oklch(0.61 0.11 222);
+    --chart-5: oklch(0.52 0.09 223); */
+  /* --sidebar: oklch(0.21 0.034 264.665);
+    --sidebar-foreground: oklch(0.985 0.002 247.839);
+    --sidebar-primary: oklch(0.80 0.13 212);
+    --sidebar-primary-foreground: oklch(0.30 0.05 230);
+    --sidebar-accent: oklch(0.278 0.033 256.848);
+    --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.551 0.027 264.364); */
+
+
+  .box-effect {
+    box-shadow: inset 30px 30px 60px #1f2e4e, inset -30px -30px 60px #1f2e4e;
+  }
+
+  /* ====================================================================== */
+  /* custom colors */
+  /* ====================================================================== */
+
+  --navbar: oklch(21.779% 0.00002 271.152);
+  --forenavbar: oklch(100% 0.00011 271.152);
+
+
+}
+
+@theme inline {
+  --font-sans: 'Inter Variable', sans-serif;
+  /* --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1); */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+
+
+  /* ====================================================================== */
+  /* custom colors */
+  /* ====================================================================== */
+
+  --color-navbar: var(--navbar);
+  --color-forenavbar: var(--forenavbar);
+}
+
+@layer base {
+  /* * {
+    @apply border-border outline-ring/50;
+    } */
+  body {
+    @apply font-sans bg-background text-foreground transition-all duration-500;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+
+.hello path {
+  fill: transparent;
+  stroke: var(--foreground) ;
+  stroke-width: 1px;
+  stroke-dasharray: 160;
+  animation: dash 4s ease-in-out 1 forwards;
+}
+.hello {
+  scale: 130%;
+}
+
+@keyframes dash {
+0% {
+stroke-dashoffset: 160;
+}
+80% {
+fill: transparent;
+}
+100% {
+fill: var(--foreground);
+stroke-dashoffset: 0;
+}
+}
+
+
+
+.girdBoy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) ;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("/src/assets/images/ui/background.jpg");
+  color:white ;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  grid-template-areas: "text1 text1 text1"
+    "text2 text2 aside"
+    "text3 text3 aside"
+    "text4 text4 text4";
+}
+
+.text1 {
+  grid-area: text1;
+}
+.text2 {
+  grid-area: text2;
+}
+.text3 {
+  grid-area: text3;
+}
+.text4 {
+  grid-area: text4;
+}
+.aside {
+  grid-area: aside;
+}
+.ali {
+  width: auto;
+  height: auto;
+}

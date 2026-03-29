@@ -246,7 +246,6 @@ import {
   createContext,
   type ReactNode,
   useEffect,
-  useMemo,
 } from "react";
 
 import type { AcademicStage, CDS, classes, Student, Subjects, TimeTableType } from "@/types";

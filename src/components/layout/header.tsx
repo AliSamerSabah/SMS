@@ -138,7 +138,7 @@ export default function Header() {
                     );
                     e.currentTarget.src = guest;
                   }}
-                  className="rounded-full size-25 object-contain  border-2 bg-center bg-no-repeat"
+                  className="rounded-full size-25 object-contain  border-2 bg-center bg-black bg-no-repeat"
                 />
               </div>
               <div className="flex flex-col justify-around">

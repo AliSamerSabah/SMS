@@ -388,6 +388,5 @@ app.get("/classroom/:grades/:classes", async (req, res) => {
 app.listen(3000, async () => {
   await fs.mkdir(dataDIR, { recursive: true });
   await fs.mkdir(schoolFolder, { recursive: true });
-  await fs.mkdir(path.join(imgDIR , "users"), { recursive: true });
   console.log("Server running on port 3000");
 });

@@ -35,6 +35,7 @@ export default function NonAdminTable() {
             <TableCaption>A list of this class' students.</TableCaption>
             <TableHeader>
               <TableRow>
+                <TableHead>#</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Total Absents</TableHead>
                 <TableHead className="text-right">General Exemption Status</TableHead>
@@ -46,7 +47,8 @@ export default function NonAdminTable() {
                 const text = exemptionStatus === "incomplete" ? "Data Incomplete"
                   : exemptionStatus === false ? "Not Exempted" : "Exempted"
                 return (
-                <TableRow key={i}>
+                  <TableRow key={i}>
+                  <TableCell>{i + 1}</TableCell>
                   <TableCell>{student.personalInfo.name}</TableCell>
                   <TableCell>{student.totalAbsences}</TableCell>
                   <TableCell className="text-right">{text}</TableCell>

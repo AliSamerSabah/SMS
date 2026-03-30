@@ -116,40 +116,17 @@ function saveSetupImage() {
 
 app.post(
   "/setup",
-  saveSetupImage().fields([
-    { name: "images", maxCount: 50 },
-    { name: "schoolLogo", maxCount: 1 },
-  ]),
   async (req, res) => {
     try {
       const users = JSON.parse(req.body.users);
       const CPG = JSON.parse(req.body.CPG);
-      const filess = req.files as {
-        images?: Express.Multer.File[];
-        schoolLogo?: Express.Multer.File[];
-      };
 
-      const uploadedFiles = filess.images ?? [];
 
-      let imageIndex = 0;
       const finalUsers = users.map((user: any) => {
-        if (user.image && uploadedFiles[imageIndex]) {
-          const file = uploadedFiles[imageIndex];
-          imageIndex++;
-
-          return {
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            imagePath: `/images/users/${file.filename}`,
-          };
-        }
-
         return {
           name: user.name,
           email: user.email,
           password: user.password,
-          imagePath: "/images/users/guest.png",
         };
       });
 
@@ -160,21 +137,6 @@ app.post(
         JSON.stringify({ users: finalUsers }, null, 2),
         "utf8",
       );
-      const files = req.files as {
-        images?: Express.Multer.File[];
-        schoolLogo?: Express.Multer.File[];
-      };
-
-      if (files?.schoolLogo?.length) {
-        const logo = files.schoolLogo[0];
-
-        const uiPath = path.join(imgDIR, "ui");
-        await fs.mkdir(uiPath, { recursive: true });
-
-        const newPath = path.join(uiPath, logo.filename);
-
-        await fs.rename(logo.path, newPath);
-      }
 
 
 

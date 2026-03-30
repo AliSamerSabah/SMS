@@ -7,7 +7,6 @@ import useAppContext from "@/hooks/useAppContext";
 import { useRef, useState, type SubmitEvent } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { User } from "lucide-react";
 export default function LogIn() {
   const form = useRef<HTMLFormElement | null>(null)
   const link = useRef<HTMLButtonElement | null>(null)
@@ -15,8 +14,6 @@ export default function LogIn() {
   const [email , setEmail] = useState("") 
   const [pasword , setPassword] = useState("") 
   const [SP , setSP] = useState("") 
-  const [type, setType] = useState(true) 
-  const [typeSP, setTypeSP] = useState(true) 
   const HandleSP = () => {
         if (SP) {
       if (SP === school.securityPassword) {
@@ -24,22 +21,18 @@ export default function LogIn() {
         newUser.isAdmin = true
         setUser(newUser)
         link.current?.click()
-        toast.success("You have logged in successfully ")
       }
     }
   }
   const HandleSubmit = (f:SubmitEvent<HTMLFormElement>) => {
     f.preventDefault()
 
-    if(!users) return ""
+    if(!users) return 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const userInfo: any = {... users.find((user) => user.email === email && user.password === pasword )}
-    if (!userInfo) return ""
-    userInfo.isAdmin = true
-      setUser(userInfo)
+    const userInfo = users.find((user) => user.email === email && user.password === pasword ) 
+    if (!userInfo) return toast("Wrong email or password")
+      setUser({...user , isAdmin: true , name: userInfo.name , email: userInfo.email , password: userInfo.password})
         link.current?.click()
-        toast.success(`Welcome back ${User.name} ,  You have logged in successfully `)
-
   }
   return (
     <main className="min-h-screen flex justify-center items-center  ">
@@ -66,8 +59,7 @@ export default function LogIn() {
               <div className="space-y-2">
                 <Label>Password</Label>
                 <div className="flex gap-2 items-center">
-                  <Input type={type === true ? "password" : "text"} required placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                  <Input type="checkbox" onChange={()=>{setType(!type)}} className="size-5" />
+                  <Input type="password" required placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
               </div>
             </div>
@@ -92,9 +84,8 @@ export default function LogIn() {
                 <div className="flex flex-col gap-2">
                   <Label>Security Password</Label>
                   <div className="flex gap-4 items-center">
-                    <Input type={typeSP === true ? "password" : "text"}
+                    <Input type="password"
                       placeholder="Security Password" onChange={(e) => setSP(e.target.value)} />
-                    <Input  type="checkbox" onChange={()=>{setTypeSP(!typeSP)}} className="size-5" />
                   </div>
                 </div>
                 <DialogFooter className="flex flex-row-reverse">

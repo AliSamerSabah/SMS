@@ -1,4 +1,3 @@
-import Admin from '@/assets/svgs/admin.svg';
 import { Button } from '../ui/button';
 import { Sun, Moon } from 'lucide-react';
 import {
@@ -14,7 +13,8 @@ import {
 import useAppContext from '@/hooks/useAppContext';
 import { Link } from 'react-router-dom';
 import  { DropdownMenu , DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent,  } from '../ui/dropdown-menu';
-import iqedu from "@/assets/images/ui/iqedu.png";
+import Admin from '@/assets/svgs/admin.svg';
+import logo from "@/assets/images/ui/Logo.png";
 import guest from "@/assets/images/users/guest.png";
 
 export default function Header() {
@@ -26,15 +26,9 @@ export default function Header() {
     <header className="grid grid-cols-[1fr_2fr_1fr] grid-rows-1 bg-navbar h-15 w-screen text-forenavbar fixed z-100 top-0  ">
       <div className="flex pl-2.5 items-center gap-2">
         <img
-          src={`/api/images/ui/${school.schoolLogo}`}
+          src={logo}
           alt="School Logo"
           className="rounded-full size-13"
-          onError={(e) => {
-            console.warn(
-              'Failed to load school logo , loading Iraqi ministry of education logo instead',
-            );
-            e.currentTarget.src = iqedu;
-          }}
         />
         <h4 className="hidden italic font-extrabold! text-primary whitespace-nowrap sm:block">
           {user.madeUsers? "DHS AL-Kadraa" : "WELCOME !!!" }
@@ -99,14 +93,8 @@ export default function Header() {
           <DialogTrigger>
             <div className="flex group rounded-full">
               <img
-                src={`/api${user.imagePath}`}
+                src={guest}
                 alt="user avatar"
-                onError={(e) => {
-                  console.warn(
-                    "Failed to load the user's profile picture , loading the guest profile picture instead",
-                  );
-                  e.currentTarget.src = guest;
-                }}
                 className="rounded-full size-13 object-contain  order-2 z-1 border-2 translate-y-0 bg-center bg-no-repeat
                   cursor-pointer group-hover:scale-130 transition-all group-active:scale-90 group-hover:border-2 group-hover:translate-y-1 group-hover:border-white"
               />
@@ -128,7 +116,7 @@ export default function Header() {
               </DialogDescription>
             </DialogHeader>
             <div className="flex gap-5">
-              <div>
+              {/* <div>
                 <img
                   src={`/api${user.imagePath}`}
                   alt="user avatar"
@@ -140,7 +128,7 @@ export default function Header() {
                   }}
                   className="rounded-full size-25 object-contain  border-2 bg-center bg-black bg-no-repeat"
                 />
-              </div>
+              </div> */}
               <div className="flex flex-col justify-around">
                 <span className="flex gap-10">
                   <p>Username : {user.name}</p>
@@ -170,7 +158,6 @@ export default function Header() {
                         name: 'guest',
                         email: null,
                         password: null,
-                        imagePath: '/images/users/guest.png',
                         isAdmin: false,
                         theme: user.theme,
                         madeUsers: true

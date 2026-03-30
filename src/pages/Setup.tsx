@@ -31,7 +31,6 @@ export default function Setup() {
   const {
     setUsers,
     setSchool,
-    school,
     setUser,
     user
   } = useAppContext();
@@ -40,7 +39,6 @@ export default function Setup() {
     name: string;
     email: string;
     password: string;
-    image: File | null;
   };
   type scpg = {
     "1st": number;
@@ -53,11 +51,10 @@ export default function Setup() {
   type inputEl = ChangeEvent<HTMLInputElement>;
 
   const [Susers, setSusers] = useState<User[]>([
-    { name: "", email: "", password: "", image: null },
+    { name: "", email: "", password: ""  },
   ]);
   const SsecurityPassword = useRef<string>("");
   const Sprinciple = useRef<string>("");
-  const [SschoolLogo, setSschoolLogo] = useState<File | null>(null);
   const SCPG = useRef<scpg>({
     "1st": 0,
     "2nd": 0,
@@ -100,28 +97,6 @@ useEffect(() => {
     e.preventDefault();
 
     try {
-      const formData = new FormData();
-
-      if (SschoolLogo) {
-        setSchool({...school , schoolLogo: `Logo.${SschoolLogo.name.split(".").pop()}`});
-        formData.append(
-          "schoolLogo",
-          SschoolLogo,
-          `Logo.${SschoolLogo.name.split(".").pop()}`,
-        );
-      }
-      // Send Susers as JSON string
-      formData.append("users", JSON.stringify(Susers));
-      formData.append("CPG", JSON.stringify(SCPG.current));
-
-      // Append only existing images
-      Susers.forEach((user) => {
-        if (user.image) {
-          const ext = user.image.name.split(".").pop();
-          formData.append("images", user.image, `${user.name}.${ext}`);
-        }
-      });
-
 
       const req:{
         data: {
@@ -130,19 +105,13 @@ useEffect(() => {
           name: string;
           email: string;
           password: string;
-          imagePath: string;
         }[]}
-      } = await axios.post("/api/setup", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      } = await axios.post("/api/setup", {users : JSON.stringify(Susers) , CPG: JSON.stringify(SCPG.current)});
       setUsers(req.data.users)
       setSchool({
         CPG: SCPG.current,
         principle: Sprinciple.current,
         schoolAdmins: SschoolAdmins,
-        schoolLogo: SschoolLogo ? `Logo.${SschoolLogo?.name.split(".").pop()}` : "iqedu.png",
         securityPassword: SsecurityPassword.current 
       })
       setUser({
@@ -156,31 +125,8 @@ useEffect(() => {
     }
   };
 
-  const handleImageChange = (
-    index: number,
-    e: inputEl | null,
-    type: "set" | "remove",
-  ) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let file: any;
-    if (type === "set" && e !== null) file = e.target.files?.[0];
-    if (type === "remove") file = null;
 
-    setSusers((prev) => {
-      const updated = [...prev];
-      updated[index] = {
-        ...updated[index],
-        image: file, // Set or remove the file,
-      };
-      return updated;
-    });
-  };
 
-function togglePassword(index: number) {
-  setShowPassword(prev =>
-    prev.map((val, i) => (i === index ? !val : val))
-  );
-}
 
 
   return (
@@ -202,19 +148,8 @@ function togglePassword(index: number) {
                 user .
               </li>
               <li>
-                3. Each user can add a profile picture and it must be an image
-                type (eg: .png ) and not other types (eg: .txt ) the same
-                follows for the school logo .
-              </li>
-              <li>
-                4. You can add 20 Susers and you can only add 5 school
+                3. You can add 20 users and you can only add 5 school
                 administrators .
-              </li>
-              <li>
-                5. All image inputs are optional and don't need to be filled so
-                in the case that the images are added , they will be used for
-                the specified cases but if they're empty pre-set images will be
-                used instead .
               </li>
             </ol>
           </CardDescription>
@@ -265,35 +200,7 @@ function togglePassword(index: number) {
                             handleChange(index, "password", e.target.value)
                           }
                         />
-                        <Input type="checkbox" className="size-5" onChange={() => togglePassword(index)} />
                       </div>
-                    </div>
-                    <div className={divClass}>
-                      <Label>Profile Image</Label>
-                      {!user.image && (
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleImageChange(index, e, "set")}
-                        />
-                      )}
-                      {user.image && (
-                        <div className="border-4 border-foreground rounded-2xl p-2 flex justify-center items-center flex-col gap-2">
-                          <Button
-                            variant={"destructive"}
-                            onClick={() =>
-                              handleImageChange(index, null, "remove")
-                            }
-                          >
-                            remove image
-                          </Button>
-                          <img
-                            src={URL.createObjectURL(user.image)}
-                            alt="preview"
-                            className="w-16 h-16 object-cover rounded-md border mt-2"
-                          />
-                        </div>
-                      )}
                     </div>
                     {Susers.length !== 1 && (
                       <Button
@@ -342,7 +249,7 @@ function togglePassword(index: number) {
                   <Label>Principle's Name</Label>
                   <Input
                     type="text"
-                    placeholder="Sprinciple's name"
+                    placeholder="principle's name"
                     required
                     onChange={(e: inputEl) =>
                       (Sprinciple.current = e.currentTarget.value)
@@ -350,35 +257,7 @@ function togglePassword(index: number) {
                   />
                 </div>
 
-                <div className={divClass}>
-                  <Label>School Image</Label>
-                  {!SschoolLogo && (
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e: inputEl) =>
-                        setSschoolLogo(e.currentTarget.files![0])
-                      }
-                    />
-                  )}
-                  {SschoolLogo && (
-                    <div className="border-4 border-foreground rounded-2xl p-2 flex justify-center items-center flex-col gap-2">
-                      <Button
-                        variant={"destructive"}
-                        onClick={() => {
-                          setSschoolLogo(null);
-                        }}
-                      >
-                        remove image
-                      </Button>
-                      <img
-                        src={URL.createObjectURL(SschoolLogo)}
-                        alt="preview"
-                        className="w-16 h-16 object-cover rounded-md border mt-2"
-                      />
-                    </div>
-                  )}
-                </div>
+
               </div>
             </section>
             <BigSeparator />

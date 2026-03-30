@@ -24,7 +24,6 @@ type Users =
       name: string;
       email: string;
       password: string;
-      imagePath: string;
     }[];
 
 type AppContextType = {
@@ -33,15 +32,13 @@ type AppContextType = {
     email: string | null;
     password: string | null;
     isAdmin: boolean;
-    imagePath: string;
     madeUsers: boolean;
     theme: "dark" | "light";
   };
   school: {
-    schoolLogo: string;
     principle: string;
     CPG: cpg;
-    schoolAdmins: null | string[];
+    schoolAdmins: string[];
     securityPassword: string;
   }
     users: Users;
@@ -63,16 +60,14 @@ type ContextResponse = {
     email: string | null
     password: string | null
     isAdmin: boolean
-    imagePath: string
     madeUsers: boolean
     theme: "dark" | "light"
   }
 
   school: {
-    schoolLogo: string
     principle: string
     CPG: cpg
-    schoolAdmins: string[] | null
+    schoolAdmins: string[] 
     securityPassword: string
   }
 
@@ -115,7 +110,6 @@ export default function AppContextProvider({
     isAdmin: false,
     email: null,
     password: null,
-    imagePath: "/images/users/guest.png",
     theme: "light",
     madeUsers: false,
   });
@@ -129,8 +123,7 @@ export default function AppContextProvider({
       "6th": 0,
     },
     principle: "",
-    schoolAdmins: null,
-    schoolLogo: "iqedu.png",
+    schoolAdmins: [],
     securityPassword: "",
   })
 const [users, setUsers] = useState<AppContextType["users"]>([]);

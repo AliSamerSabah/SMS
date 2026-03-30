@@ -1,31 +1,40 @@
 import StudentSearchDialog from '@/components/custom/Search';
+import useAppContext from '@/hooks/useAppContext';
 import { Link } from 'react-router-dom';
 
 export default function Grades() {
+  const {school:{principle,schoolAdmins}} = useAppContext()
   return (
-    <div className="flex justify-center items-center flex-col gap-5 pt-30 min-h-screen flex-wrap">
-        <StudentSearchDialog/>
-      <div className="w-200 flex justify-center items-center flex-wrap h-50 gap-5">
-        <Link to="/grades/1st">
-          <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 1</div>
-        </Link>
-        <Link to="/grades/2nd">
-          <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 2</div>
-        </Link>
-        <Link to="/grades/3rd">
-          <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 3</div>
-        </Link>
-        <Link to="/grades/4th">
-          <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 4</div>
-        </Link>
-        <Link to="/grades/5th">
-          <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 5</div>
-        </Link>
-        <Link to="/grades/6th">
-          <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 6</div>
-        </Link>
+    <div>
+      <div className="flex justify-center items-center flex-col gap-5 pt-30 min-h-screen flex-wrap">
+          <StudentSearchDialog/>
+        <div className="w-200 flex justify-center items-center flex-wrap h-50 gap-5">
+          <Link to="/grades/1st">
+            <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 1</div>
+          </Link>
+          <Link to="/grades/2nd">
+            <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 2</div>
+          </Link>
+          <Link to="/grades/3rd">
+            <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 3</div>
+          </Link>
+          <Link to="/grades/4th">
+            <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 4</div>
+          </Link>
+          <Link to="/grades/5th">
+            <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 5</div>
+          </Link>
+          <Link to="/grades/6th">
+            <div className="box-effect size-50 rounded-4xl flex items-center justify-center font-extrabold text-3xl hover:scale-110 transition-all duration-500 dark:hover:brightness-125  hover:brightness-75">grades 6</div>
+          </Link>
+        </div>
+        {/* <StudentSearch /> */}
       </div>
-      {/* <StudentSearch /> */}
+      <div className='flex justify-center items-center flex-col gap-5 pt-10'>
+        <h3>school info</h3>
+        <p>school's principle {principle}</p>
+        <p>school's Administrators :  {schoolAdmins.join(" , ")}</p>
+      </div>
     </div>
   );
 }

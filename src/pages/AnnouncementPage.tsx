@@ -84,7 +84,6 @@ export function AnnouncementPage() {
         ),
       });
 
-
       const doc = new Document({
         sections: [
           {
@@ -98,7 +97,7 @@ export function AnnouncementPage() {
               new Paragraph(""),
               new Paragraph(""),
               new Paragraph(tableName.current || ""),
-              table? table : new Paragraph(""),
+              table,
               new Paragraph(""),
               new Paragraph(""),
               new Paragraph(date.current || new Date().toLocaleString()),

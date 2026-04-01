@@ -338,9 +338,10 @@ app.get("/classroom/:grades/:classes", async (req, res) => {
 });
 app.get("/gen/:type/:g/:c/:count", async (req, res) => {
   try {
+    const arr = ["1st" , "2nd" , "3rd" , "4th" , "5th" , "6th"]
     const { type } = req.params;
+    const g = arr[Number(req.params.g)] as AcademicStage;
     const c = req.params.c.toUpperCase() as classes;
-    const g = req.params.g as AcademicStage;
     const count = Number(req.params.count);
     function generateStudents(): Student[] {
 

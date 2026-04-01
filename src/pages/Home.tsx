@@ -118,15 +118,15 @@ const schools = [
 
 export default function IraqSchoolsInfo() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-background text-gray-900 dark:text-gray-100">
       {/* 🔹 HEADER */}
-      <div className="py-12 flex items-center gap-10 justify-center flex-col  border-b">
+      <div className="py-12 flex items-center gap-10 justify-center flex-col border-b dark:border-white">
         {/* <h1 className="text-4xl font-bold mb-3">
           Iraq’s Distinguished High Schools
         </h1> */}
         <Logo />
 
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           A historical and academic overview of Iraq’s most respected secondary
           institutions — where excellence is not optional, but expected.
         </p>
@@ -136,7 +136,7 @@ export default function IraqSchoolsInfo() {
       <div className="ali">
       </div>
       <section className="py-16 px-6 max-w-4xl mx-auto text-center">
-        <p className="text-gray-700 leading-relaxed">
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
           Iraq’s educational system has long recognized the importance of
           nurturing exceptional students. From historic institutions established
           in the early 20th century to modern elite schools, these centers of
@@ -152,7 +152,7 @@ export default function IraqSchoolsInfo() {
             <img
               src={school.image}
               alt={school.name}
-              className="rounded-xl shadow-md w-full h-72 object-contain"
+              className="rounded-xl shadow-md dark:shadow-white w-full h-72 object-contain "
             />
 
             {/* Content */}
@@ -162,11 +162,11 @@ export default function IraqSchoolsInfo() {
                 Founded: {school.founded}
               </p>
 
-              <p className="text-gray-700 mb-4 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
                 {school.description}
               </p>
 
-              <ul className="list-disc pl-5 text-gray-600 space-y-1">
+              <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 space-y-1">
                 {school.highlights.map((h, i) => (
                   <li key={i}>{h}</li>
                 ))}
@@ -177,7 +177,7 @@ export default function IraqSchoolsInfo() {
       </section>
 
       {/* 🔹 FOOTER */}
-      <div className="py-6 text-center text-gray-500 text-sm border-t">
+      <div className="py-6 text-center text-gray-500 dark:border-white text-sm border-t">
         Educational Archive — Iraq
       </div>
     </div>

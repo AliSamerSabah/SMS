@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { subPerGrade } from "@/consts";
 import { useTableContext } from "@/hooks/useTableContext";
-import type { Grades as g, Student } from "@/types";
+import type {  Grades as g, Student } from "@/types";
 import { useRef, useState } from "react";
 import {
   Sheet,

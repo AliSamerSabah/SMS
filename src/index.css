@@ -250,8 +250,8 @@ input[type="number"] {
   fill: transparent;
   stroke: var(--foreground) ;
   stroke-width: 1px;
-  stroke-dasharray: 160;
-  animation: dash 4s ease-in-out 1 forwards;
+  stroke-dasharray: 350;
+  animation: dash 5s ease-in-out 1 forwards;
 }
 .hello {
   scale: 130%;
@@ -259,7 +259,7 @@ input[type="number"] {
 
 @keyframes dash {
 0% {
-stroke-dashoffset: 160;
+stroke-dashoffset: 350;
 }
 80% {
 fill: transparent;
@@ -272,7 +272,7 @@ stroke-dashoffset: 0;
 
 
 
-.girdBoy {
+/* .girdBoy {
   display: grid;
   grid-template-columns: repeat(3, 1fr) ;
   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("/src/assets/images/ui/background.jpg");
@@ -304,4 +304,4 @@ stroke-dashoffset: 0;
 .ali {
   width: auto;
   height: auto;
-}
+} */

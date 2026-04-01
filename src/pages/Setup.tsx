@@ -54,6 +54,7 @@ export default function Setup() {
     { name: "", email: "", password: ""  },
   ]);
   const SsecurityPassword = useRef<string>("");
+  const SschoolName = useRef<string>("");
   const Sprinciple = useRef<string>("");
   const SCPG = useRef<scpg>({
     "1st": 0,
@@ -112,7 +113,8 @@ useEffect(() => {
         CPG: SCPG.current,
         principle: Sprinciple.current,
         schoolAdmins: SschoolAdmins,
-        securityPassword: SsecurityPassword.current 
+        securityPassword: SsecurityPassword.current,
+        schoolName:SschoolName.current
       })
       setUser({
         ...user,
@@ -148,7 +150,7 @@ useEffect(() => {
                 user .
               </li>
               <li>
-                3. You can add 20 users and you can only add 5 school
+                3. You can add 10 users and you can only add 5 school
                 administrators .
               </li>
             </ol>
@@ -253,6 +255,17 @@ useEffect(() => {
                     required
                     onChange={(e: inputEl) =>
                       (Sprinciple.current = e.currentTarget.value)
+                    }
+                  />
+                </div>
+                <div className={divClass}>
+                  <Label>School's Name</Label>
+                  <Input
+                    type="text"
+                    placeholder="school's name"
+                    required
+                    onChange={(e: inputEl) =>
+                      (SschoolName.current = e.currentTarget.value)
                     }
                   />
                 </div>
@@ -412,10 +425,10 @@ useEffect(() => {
               type="button"
               variant={"secondary"}
               onClick={() => {
-                if (Susers.length < 20) addUser();
+                if (Susers.length < 10) addUser();
                 else
                   toast.warning(
-                    "The maximum number of Susers has been reached (20 Susers) ",
+                    "The maximum number of users has been reached (10 users) ",
                   );
               }}
               disabled={Susers.length >= 20}

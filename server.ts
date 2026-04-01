@@ -3,13 +3,24 @@ import type { Request as req, Response as res } from "express";
 import path from "path";
 import multer from "multer";
 import fs from "fs/promises";
-import { AcademicStage, classes, Days, type Student } from "./src/types";
-import { baseStages, days } from "./src/consts";
+import {
+  AcademicStage,
+  Assessment,
+  classes,
+  classes as cs,
+  Days,
+  Grades,
+  Periods,
+  TimeTableType,
+  type Student,
+} from "./src/types";
+import { baseStages, days, subPerGrade } from "./src/consts";
+import { faker } from "@faker-js/faker";
 
 const app = express();
 const dataDIR = path.join(process.cwd(), "data");
 const imgDIR = path.join(process.cwd(), "src", "assets", "images");
-  const schoolFolder = path.join(dataDIR, "metadata");
+const schoolFolder = path.join(dataDIR, "metadata");
 
 app.use(express.json());
 app.use("/images", express.static(imgDIR));
@@ -114,124 +125,103 @@ function saveSetupImage() {
   });
 }
 
-app.post(
-  "/setup",
-  async (req, res) => {
-    try {
-      const users = JSON.parse(req.body.users);
-      const CPG = JSON.parse(req.body.CPG);
+app.post("/setup", async (req, res) => {
+  try {
+    const users = JSON.parse(req.body.users);
+    const CPG = JSON.parse(req.body.CPG);
 
+    const finalUsers = users.map((user: any) => {
+      return {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      };
+    });
 
-      const finalUsers = users.map((user: any) => {
-        return {
-          name: user.name,
-          email: user.email,
-          password: user.password,
-        };
-      });
+    await fs.writeFile(
+      path.join(schoolFolder, "school.json"),
+      JSON.stringify({ users: finalUsers }, null, 2),
+      "utf8",
+    );
 
-
-
-      await fs.writeFile(
-        path.join(schoolFolder, "school.json"),
-        JSON.stringify({ users: finalUsers }, null, 2),
-        "utf8",
+    function generateClasses(count: number): string[] {
+      return Array.from({ length: count }, (_, i) =>
+        String.fromCharCode(65 + i),
       );
+    }
 
+    const periods: AcademicStage[] = ["1st", "2nd", "3rd", "4th", "5th", "6th"];
 
+    for (const grade of baseStages) {
+      const tt: any = {}; // ✅ reset per grade
 
+      const gradeCount = CPG[grade];
+      const classes = generateClasses(gradeCount);
 
+      for (const cls of classes) {
+        tt[cls] = {}; // ✅ initialize class
+        await fs.mkdir(path.join(dataDIR, grade), { recursive: true });
+        const myPath = path.join(dataDIR, grade, `${cls}.json`);
+        await fs.writeFile(myPath, JSON.stringify([], null, 2), "utf8");
+        for (const day of days) {
+          tt[cls][day] = {}; // ✅ initialize day
 
-   function generateClasses(count: number): string[] {
-  return Array.from({ length: count }, (_, i) =>
-    String.fromCharCode(65 + i)
-  );
-}
-
-const periods: AcademicStage[] = [
-  "1st", "2nd", "3rd", "4th", "5th", "6th"
-];
-
-for (const grade of baseStages) {
-  const tt: any = {}; // ✅ reset per grade
-
-  const gradeCount = CPG[grade];
-  const classes = generateClasses(gradeCount);
-
-  for (const cls of classes) {
-    tt[cls] = {}; // ✅ initialize class
-    await fs.mkdir(path.join(dataDIR, grade), { recursive: true });
-    const myPath = path.join(dataDIR, grade, `${cls}.json`);
-      await fs.writeFile(
-    myPath,
-    JSON.stringify([], null, 2),
-    "utf8"
-  );
-    for (const day of days) {
-      tt[cls][day] = {}; // ✅ initialize day
-
-      for (const period of periods) {
-        tt[cls][day][period] = "";
+          for (const period of periods) {
+            tt[cls][day][period] = "";
+          }
+        }
       }
+
+      const timeTablePath = path.join(dataDIR, grade, "timeTable.json");
+
+      await fs.writeFile(timeTablePath, JSON.stringify(tt, null, 2), "utf8");
     }
+    // const days: Days[] = ["Sun", "Mon", "Tue", "Wed", "Thu"];
+    // const classes: classes[] = ["A", "B", "C", "D", "E", "F", "G"];
+
+    // Optional: your subjects list
+    // const subjects = [
+    //   "Mathematics",
+    //   "Physics",
+    //   "Chemistry",
+    //   "Biology",
+    //   "Arabic",
+    //   "English",
+    //   "French",
+    //   "Computer",
+    //   "Geography",
+    //   "Moral Education",
+    //   "Religious Education",
+    //   "Art",
+    //   "Physical Education",
+    // ];
+    // function generateEmptyTimeTable() {
+    //   const table: any = {};
+
+    //   for (const cls of classes) {
+    //     table[cls] = {};
+
+    //     for (const day of days) {
+    //       table[cls][day] = {};
+
+    //       for (const period of periods) {
+    //         table[cls][day][period] = ""; // empty subject
+    //       }
+    //     }
+    //   }
+
+    //   return table;
+    // }
+
+    res.json({
+      message: "Users saved successfully",
+      users: finalUsers,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Upload failed" });
   }
-
-  const timeTablePath = path.join(dataDIR, grade, "timeTable.json");
-
-  await fs.writeFile(
-    timeTablePath,
-    JSON.stringify(tt, null, 2),
-    "utf8"
-  );
-}
-      // const days: Days[] = ["Sun", "Mon", "Tue", "Wed", "Thu"];
-      // const classes: classes[] = ["A", "B", "C", "D", "E", "F", "G"];
-
-      // Optional: your subjects list
-      // const subjects = [
-      //   "Mathematics",
-      //   "Physics",
-      //   "Chemistry",
-      //   "Biology",
-      //   "Arabic",
-      //   "English",
-      //   "French",
-      //   "Computer",
-      //   "Geography",
-      //   "Moral Education",
-      //   "Religious Education",
-      //   "Art",
-      //   "Physical Education",
-      // ];
-        // function generateEmptyTimeTable() {
-        //   const table: any = {};
-
-        //   for (const cls of classes) {
-        //     table[cls] = {};
-
-        //     for (const day of days) {
-        //       table[cls][day] = {};
-
-        //       for (const period of periods) {
-        //         table[cls][day][period] = ""; // empty subject
-        //       }
-        //     }
-        //   }
-
-        //   return table;
-        // }
-      
-
-      res.json({
-        message: "Users saved successfully",
-        users: finalUsers,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Upload failed" });
-    }
-  },
-);
+});
 
 app.post(
   "/createImage/:fileFolder/:fileName",
@@ -244,8 +234,8 @@ app.post(
           message: "No file uploaded",
         });
       }
-      
-      console.log("good boy")
+
+      console.log("good boy");
       return res.status(201).json({
         success: true,
         message: "Image uploaded successfully",
@@ -341,12 +331,158 @@ app.get("/classroom/:grades/:classes", async (req, res) => {
     });
   }
   const students = JSON.parse(await fs.readFile(studentPath, "utf-8"));
-    res.status(200).json({
-      students,
-      timeTable,
+  res.status(200).json({
+    students,
+    timeTable,
+  });
+});
+app.get("/gen/:type/:g/:c/:count", async (req, res) => {
+  try {
+    const { type } = req.params;
+    const c = req.params.c.toUpperCase() as classes;
+    const g = req.params.g as AcademicStage;
+    const count = Number(req.params.count);
+    function generateStudents(): Student[] {
+
+      const random = (min: number, max: number) =>
+        Math.floor(Math.random() * (max - min + 1)) + min;
+
+
+      const generateAssessment = (): Assessment => {
+        const first = random(90, 100);
+        const half = random(40, 100);
+        const second = random(40, 100);
+        let final;
+        const isExempt = (first + half + second) / 3 >= 85;
+        if (!isExempt) final = random(0, 100);
+        return {
+          first,
+          half,
+          second,
+          final,
+        };
+      };
+
+      const generateGrades = (): Grades => {
+        const subjectGrades: any = {};
+
+        subPerGrade[g].forEach((subject) => {
+          subjectGrades[subject] = generateAssessment();
+        });
+
+        return {
+          subjects: subjectGrades,
+        };
+      };
+
+      const students: Student[] = [];
+
+      for (let i = 1; i <= count; i++) {
+        students.push({
+          personalInfo: {
+            name: faker.person.fullName(),
+            DOB: faker.date.birthdate().toISOString(),
+            address: faker.location.city(),
+            phone: faker.phone.number(),
+            notes: faker.lorem.sentence(),
+          },
+          academicInfo: {
+            currentStage: g,
+            currentClass: c,
+          },
+          totalAbsences: random(0, 50),
+          grades: generateGrades(), // ONLY current stage
+        });
+      }
+
+      return students;
+    }
+
+    function generateTimetable(grades: AcademicStage): TimeTableType {
+      const timetable = {} as TimeTableType;
+      const classes: classes[] = ["A", "B", "C", "D", "E", "F", "G"];
+      const days: Days[] = ["Sun", "Mon", "Tue", "Wed", "Thu"];
+      const periods: AcademicStage[] = [
+        "1st",
+        "2nd",
+        "3rd",
+        "4th",
+        "5th",
+        "6th",
+      ];
+
+      for (const classe of classes) {
+        const subjects = subPerGrade[grades];
+        timetable[classe] = {} as Record<Days, Periods>;
+
+        for (const day of days) {
+          timetable[classe][day] = {} as Periods;
+
+          for (const period of periods) {
+            const randomSubject =
+              subjects[Math.floor(Math.random() * subPerGrade[grades].length)];
+            timetable[classe][day][period] = randomSubject;
+          }
+        }
+      }
+
+      return timetable;
+    }
+
+    // async function run(type: "student" | "timeTable" | "both" = "student", grades: AcademicStage, classes?: cs) {
+    if (type === "s") {
+      const students = generateStudents();
+      await fs.writeFile(
+        path.join(dataDIR, g, `${c}.json`),
+        JSON.stringify(students),
+        "utf8",
+      );
+    }
+    if (type === "t") {
+      const tt = generateTimetable(g);
+      await fs.writeFile(
+        path.join(dataDIR, g, "timeTable.json"),
+        JSON.stringify(tt),
+        "utf8",
+      );
+    }
+    if (type === "b") {
+      const students = generateStudents();
+      const tt = generateTimetable(g);
+      await fs.writeFile(
+        path.join(dataDIR, g, `${c}.json`),
+        JSON.stringify(students),
+        "utf8",
+      );
+      await fs.writeFile(
+        path.join(dataDIR, g, "timeTable.json"),
+        JSON.stringify(tt),
+        "utf8",
+      );
+    }
+
+      res.status(200).json({"message":"success !!!!"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal server error",
     });
+  }
 });
 
+app.get("/reset", async (_req , res) => {
+try {
+  await fs.rm(dataDIR, { recursive: true, force: true });  
+    await fs.mkdir(dataDIR, { recursive: true });
+  await fs.mkdir(schoolFolder, { recursive: true });
+      res.status(200).json({"message":"success !!!!"});
+} catch (error) {
+      console.error(error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+}
+});
 app.listen(3000, async () => {
   await fs.mkdir(dataDIR, { recursive: true });
   await fs.mkdir(schoolFolder, { recursive: true });

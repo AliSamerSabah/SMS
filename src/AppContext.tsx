@@ -40,6 +40,7 @@ type AppContextType = {
     CPG: cpg;
     schoolAdmins: string[];
     securityPassword: string;
+    schoolName:string
   }
     users: Users;
   table: {
@@ -69,6 +70,7 @@ type ContextResponse = {
     CPG: cpg
     schoolAdmins: string[] 
     securityPassword: string
+    schoolName:string
   }
 
   table: {
@@ -125,6 +127,7 @@ export default function AppContextProvider({
     principle: "",
     schoolAdmins: [],
     securityPassword: "",
+    schoolName:"WELCOME !!!"
   })
 const [users, setUsers] = useState<AppContextType["users"]>([]);
 const [table, setTable] = useState<AppContextType["table"]>({

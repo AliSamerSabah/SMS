@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import useAppContext from "@/hooks/useAppContext";
 import { Bell, Circle, Github, Home, Phone, School2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -36,7 +37,7 @@ export default function Footer() {
           {/* Live Info */}
           <div className="flex flex-wrap gap-2 mt-2">
             <span className="text-[10px] px-2 py-1 rounded bg-muted">
-              School: DHS AL-Kadraa
+              School: {school.schoolName}
             </span>
             <span className="text-[10px] px-2 py-1 rounded bg-muted">
               User: {user.name ? user.name : "Guest"}

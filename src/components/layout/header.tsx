@@ -14,7 +14,7 @@ import useAppContext from '@/hooks/useAppContext';
 import { Link } from 'react-router-dom';
 import  { DropdownMenu , DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent,  } from '../ui/dropdown-menu';
 import Admin from '@/assets/svgs/admin.svg';
-import logo from "@/assets/images/ui/Logo.png";
+import logo from "@/assets/images/ui/iqedu.png";
 import guest from "@/assets/images/users/guest.png";
 
 export default function Header() {
@@ -23,16 +23,16 @@ export default function Header() {
   const grades = ["1st", "2nd", "3rd", "4th", "5th", "6th"] as const;
   type Grades = typeof grades[number];
   return (
-    <header className="grid grid-cols-[1fr_2fr_1fr] grid-rows-1 bg-navbar h-15 w-screen text-forenavbar fixed z-100 top-0  ">
+    <header className="grid grid-cols-[35%_40%_25%] grid-rows-1 bg-navbar h-15 w-screen text-forenavbar fixed z-100 top-0  ">
       <div className="flex pl-2.5 items-center gap-2">
         <img
           src={logo}
           alt="School Logo"
           className="rounded-full size-13"
         />
-        <h4 className="hidden italic font-extrabold! text-primary whitespace-nowrap sm:block">
-          {user.madeUsers? "DHS AL-Kadraa" : "WELCOME !!!" }
-        </h4>
+        <h5 className="hidden italic font-extrabold! text-primary w-full sm:block">
+          {school.schoolName}
+        </h5>
       </div>
 
       <nav className="flex items-center justify-center gap-2 transition-all">

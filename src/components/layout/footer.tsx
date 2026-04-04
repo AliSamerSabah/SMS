@@ -1,13 +1,23 @@
 /// <reference types="vite-plugin-svgr/client" />
 import useAppContext from "@/hooks/useAppContext";
-import { Bell, Circle, Github, Home, Phone, School2 } from "lucide-react";
+import { Bell, Circle, Github, Home, LogIn, Phone, School2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import TelegramSVG from "@/assets/svgs/telegram.svg?react";
 export default function Footer() {
-  const { user , school } = useAppContext();
-    const grades = ["1st", "2nd", "3rd", "4th", "5th", "6th"] as const;
-  type Grades = typeof grades[number];
+  const { user, school } = useAppContext();
+  const grades = ["1st", "2nd", "3rd", "4th", "5th", "6th"] as const;
+  type Grades = (typeof grades)[number];
   return (
     <footer className="w-full border-t bg-background text-foreground mt-10">
       <div className="max-w-7xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-3">
@@ -90,13 +100,23 @@ export default function Footer() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link
-            to="/announcements"
-            className="flex items-center gap-2 hover:text-primary transition hover:translate-x-1"
-          >
-            <Bell size={16} />
-            Announcements
-          </Link>
+          {user.isAdmin ? (
+            <Link
+              to="/announcements"
+              className="flex items-center gap-2 hover:text-primary transition hover:translate-x-1"
+            >
+              <Bell size={16} />
+              Announcements
+            </Link>
+          ) : (
+            <Link
+              to="/signIn"
+              className="flex items-center gap-2 hover:text-primary transition hover:translate-x-1"
+            >
+              <LogIn size={16} />
+              Sign in
+            </Link>
+          )}
         </div>
 
         {/* Right - Socials + Status */}

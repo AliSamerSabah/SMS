@@ -132,7 +132,7 @@ export function useTableHelpers() {
         const grade = student.grades.subjects[subject];
         const { averageNum, averageStatus } = average(student, subject);
         const finalAvg = finalAverage(student, subject);
-        const ID = i
+        const ID = i + 1
         const Name = student.personalInfo.name;
         const Stage = student.academicInfo.currentStage;
         const Class = student.academicInfo.currentClass;
@@ -184,7 +184,7 @@ export function useTableHelpers() {
     } else {
       flat = table.getSelectedRowModel().rows.map((row , i) => {
         const student = row.original;
-        const ID = i;
+        const ID = i + 1;
         const Name = student.personalInfo.name;
         const Stage = student.academicInfo.currentStage;
         const Class = student.academicInfo.currentClass;

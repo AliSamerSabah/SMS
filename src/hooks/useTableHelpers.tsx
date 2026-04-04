@@ -127,12 +127,12 @@ export function useTableHelpers() {
     let flat;
     if (type === "Current Subject") {
       const subject = tc.subject.subject;
-      flat = table.getSelectedRowModel().rows.map((row) => {
+      flat = table.getSelectedRowModel().rows.map((row , i) => {
         const student = row.original;
         const grade = student.grades.subjects[subject];
         const { averageNum, averageStatus } = average(student, subject);
         const finalAvg = finalAverage(student, subject);
-        const ID = getIndex(table, row);
+        const ID = i
         const Name = student.personalInfo.name;
         const Stage = student.academicInfo.currentStage;
         const Class = student.academicInfo.currentClass;
@@ -182,9 +182,9 @@ export function useTableHelpers() {
         return rows;
       });
     } else {
-      flat = table.getSelectedRowModel().rows.map((row) => {
+      flat = table.getSelectedRowModel().rows.map((row , i) => {
         const student = row.original;
-        const ID = getIndex(table, row);
+        const ID = i;
         const Name = student.personalInfo.name;
         const Stage = student.academicInfo.currentStage;
         const Class = student.academicInfo.currentClass;

@@ -92,7 +92,10 @@ function looseMatch(text: string, query: string) {
                 className="border rounded p-2 hover:bg-muted transition"
               >
                 <Link
-                to={`/grades/${s.grade}/${s.class}`}
+                    to={{
+    pathname: `/grades/${s.grade}/${s.class}`,
+    search: `?student="${s.name}"`,
+  }}
                 >
                   <div className="font-medium">{s.name}</div>
                   <div className="text-sm text-muted-foreground">

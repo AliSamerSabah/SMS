@@ -73,9 +73,9 @@
 // }
 /// <reference types="vite-plugin-svgr/client" />
 import Logo from "@/assets/svgs/Myschoolname.svg?react";
-import bgc from "@/assets/images/ui/bgc.png";
-import dhs from "@/assets/images/ui/background.jpg";
-import mhs from "@/assets/images/ui/mhs.png";
+import bgc from "@/assets/images/ui/bgc.webp";
+import dhs from "@/assets/images/ui/background.webp";
+import mhs from "@/assets/images/ui/mhs.webp";
 
 const schools = [
   {

@@ -1,7 +1,7 @@
 import AdminTable from "@/components/custom/AdminTable";
 import NonAdminTable from "@/components/custom/NonAdminTable";
 import useAppContext from "@/hooks/useAppContext";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { AcademicStage, classes, Student, TimeTableType } from "../types";
@@ -19,12 +19,15 @@ export default function StudentTable() {
     classNum: AcademicStage;
     classOrder: classes;
   }>();
+  const [searchParams] = useSearchParams()
+  const student = searchParams.get("student")?.replaceAll('"', "")
 
   if (!classNum || !classOrder) return null;
 
+
   const { user } = useAppContext();
   const tc = useTableContext();
-
+if(student)tc.globalFilter.setGlobalFilter(student)
   // ✅ hook must be here
   const columns = useColumns();
 

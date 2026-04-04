@@ -14,8 +14,8 @@ import useAppContext from '@/hooks/useAppContext';
 import { Link } from 'react-router-dom';
 import  { DropdownMenu , DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuPortal, DropdownMenuSubContent,  } from '../ui/dropdown-menu';
 import Admin from '@/assets/svgs/admin.svg';
-import logo from "@/assets/images/ui/iqedu.png";
-import guest from "@/assets/images/users/guest.png";
+import logo from "@/assets/images/ui/iqedu.webp";
+import guest from "@/assets/images/users/guest.webp";
 
 export default function Header() {
   const { user, setUser, school } =

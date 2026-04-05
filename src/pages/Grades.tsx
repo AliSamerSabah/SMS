@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import useAppContext from "@/hooks/useAppContext";
 import axios from "axios";
 import { Trash2Icon } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function Grades() {
@@ -23,7 +23,6 @@ export default function Grades() {
     school: { principle, schoolAdmins },
     user: { isAdmin },
   } = useAppContext();
-  const navigate = useNavigate();
   return (
     <div>
       <div className="flex justify-center items-center flex-col gap-5 pt-30 min-h-screen flex-wrap">
@@ -81,7 +80,7 @@ export default function Grades() {
                 Reset System
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent size="sm">
+            <AlertDialogContent size="sm" className="duration-500">
               <AlertDialogHeader>
                 <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
                   <Trash2Icon />

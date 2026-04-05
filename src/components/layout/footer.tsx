@@ -166,7 +166,7 @@ export default function Footer() {
         {/* Extra info */}
         <div className="flex gap-4">
           <a
-            href="https://github.com/AliSamerSabah/school_Managment_System"
+            href="https://github.com/AliSamerSabah/SMS"
             target="_blank"
             className="flex items-center gap-2 hover:text-primary transition hover:-translate-y-1"
           >

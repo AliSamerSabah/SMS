@@ -67,7 +67,14 @@ export function ColumnOptions({ props }: Props) {
         )}
         <DropdownMenuSeparator />
         <AlertDialog>
-          <AlertDialogTrigger>Delete Student</AlertDialogTrigger>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant={"ghost"}
+              className="relative hover:bg-destructive bg-destructive/50 flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-inset:pl-8 data-[variant=destructive]:text-destructive data-disabled:opacity-50 data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0"
+            >
+              Delete Student
+            </Button>
+          </AlertDialogTrigger>
           <AlertDialogContent className="duration-700" size="sm">
             <AlertDialogHeader>
               <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">

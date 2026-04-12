@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider , type RouteObject } from "react-router-dom";
-import NFP from "@/pages/notFoundPage";
+import NFP from "./pages/notFoundPage";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import App from "./App";
